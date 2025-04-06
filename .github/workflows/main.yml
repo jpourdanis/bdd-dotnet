@@ -2,49 +2,33 @@ name: Run Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main, gh-pages ]
   pull_request:
-    branches:
-      - main
+    branches: [ main, gh-pages ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v4
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.x'
-
-    - name: Install Playwright
-      run: |
-        dotnet tool install --global Microsoft.Playwright.CLI
-        export PATH="$PATH:~/.dotnet/tools"
-        dotnet add package Microsoft.Playwright
-        dotnet build
-        playwright install
-
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build project
-      run: dotnet build --configuration Release
-
-    - name: Run tests
-      run: dotnet test --configuration Release --logger trx --results-directory $(System.DefaultWorkingDirectory)/TestResults
-
+        dotnet-version: 9.x
+    - name: Build & Install
+      run: dotnet build
+    - name: Ensure browsers are installed
+      run: pwsh WeatherInfo.IntegrationTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
+    - name: Run your tests
+      run: dotnet test
     - name: Load test report history
       uses: actions/checkout@v3
       if: always()
       continue-on-error: true
       with:
-          ref: main
-          path: main
+          ref: gh-pages
+          path: gh-pages
           
     - name: Build test report
       uses: simple-elf/allure-report-action@v1.7
@@ -52,7 +36,7 @@ jobs:
       with:
         gh_pages: gh-pages
         allure_history: allure-history
-        allure_results: WeatherInfo.IntegrationTests/bin/Debug/net9.0/allure-results/* allure-results/
+        allure_results: $(System.DefaultWorkingDirectory)/WeatherInfo.IntegrationTests/bin/Debug/net9.0/allure-results/* allure-results/
 
     - name: Publish test report
       uses: peaceiris/actions-gh-pages@v3
@@ -61,3 +45,4 @@ jobs:
           github_token: ${{ secrets.REPORT_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+          force_orphan: true
