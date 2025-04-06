@@ -19,7 +19,7 @@ jobs:
     - name: Build & Install
       run: dotnet build
     - name: Ensure browsers are installed
-      run: pwsh WeatherInfo.IntegrationTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
+      run: pwsh $(System.DefaultWorkingDirectory)/WeatherInfo.IntegrationTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
     - name: Run your tests
       run: dotnet test
 
@@ -37,7 +37,7 @@ jobs:
       with:
         gh_pages: gh-pages
         allure_history: allure-history
-        allure_results: WeatherInfo.IntegrationTests/bin/Debug/net9.0/allure-results/* allure-results/
+        allure_results: $(System.DefaultWorkingDirectory)/WeatherInfo.IntegrationTests/bin/Debug/net9.0/allure-results/* allure-results/
 
     - name: Publish test report
       uses: peaceiris/actions-gh-pages@v3
