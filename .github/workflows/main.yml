@@ -36,7 +36,7 @@ jobs:
       with:
         gh_pages: gh-pages
         allure_history: allure-history
-        allure_results: $(System.DefaultWorkingDirectory)/WeatherInfo.IntegrationTests/bin/Debug/net9.0/allure-results/* allure-results/
+        allure_results: $(System.DefaultWorkingDirectory)/WeatherInfo.IntegrationTests/bin/Debug/net9.0/allure-results
 
     - name: Publish test report
       uses: peaceiris/actions-gh-pages@v3
