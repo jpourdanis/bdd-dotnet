@@ -1,0 +1,57 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '9.x'
+
+    - name: Install Playwright
+      run: |
+        dotnet tool install --global Microsoft.Playwright.CLI
+        export PATH="$PATH:~/.dotnet/tools"
+        dotnet add package Microsoft.Playwright
+        dotnet build
+        playwright install
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --configuration Release
+
+    - name: Run tests
+      run: dotnet test --configuration Release --logger trx --results-directory $(System.DefaultWorkingDirectory)/TestResults
+
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: $(System.DefaultWorkingDirectory)/TestResults
+
+    - name: Generate Allure Report
+      run: |
+        mkdir -p allure-results
+        cp -r WeatherInfo.IntegrationTests/bin/Debug/net9.0/allure-results/* allure-results/
+        allure generate allure-results --clean -o allure-report
+
+    - name: Deploy Allure Report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
