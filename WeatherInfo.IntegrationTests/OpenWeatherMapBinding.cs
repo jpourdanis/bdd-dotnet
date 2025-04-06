@@ -270,7 +270,8 @@ namespace OpenWeatherMap.E2ETests
                    State = WaitForSelectorState.Visible,
                    Timeout = 5000
                });
-            await page.ClickAsync(".search-dropdown-menu li:first-child");
+            //MAKE THE TEST FAIL
+            //await page.ClickAsync(".search-dropdown-menu li:first-child");
             // Wait for search results to load
             await page.WaitForLoadStateAsync(LoadState.NetworkIdle,
                 new PageWaitForLoadStateOptions { Timeout = 10000 });
