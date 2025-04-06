@@ -19,7 +19,7 @@ jobs:
     - name: Build & Install
       run: dotnet build
     - name: Ensure browsers are installed
-      run: pwsh $(System.DefaultWorkingDirectory)/WeatherInfo.IntegrationTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
+      run: pwsh /WeatherInfo.IntegrationTests/bin/Debug/net9.0/playwright.ps1 install --with-deps
     - name: Run your tests
       run: dotnet test
 
