@@ -16,19 +16,10 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.x
-
-    - name: Install Playwright
-      run: |
-        dotnet tool install --global Microsoft.Playwright.CLI
-        export PATH="$PATH:~/.dotnet/tools"
-        dotnet add package Microsoft.Playwright
-        dotnet build
-        playwright install
-
     - name: Build & Install
       run: dotnet build
     - name: Ensure browsers are installed
-      run: pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+      run: pwsh bin/Debug/net9.0/playwright.ps1 install --with-deps
     - name: Run your tests
       run: dotnet test
 
