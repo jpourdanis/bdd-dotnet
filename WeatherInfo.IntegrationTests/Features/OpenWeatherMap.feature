@@ -1,5 +1,5 @@
 Feature: OpenWeatherMap
-
+# ![OpenWeather home page](../Images/weather-home.png)
 @ui @success @search
 Scenario: Search Weather By Valid City
     Given I navigate to OpenWeatherMap homepage
