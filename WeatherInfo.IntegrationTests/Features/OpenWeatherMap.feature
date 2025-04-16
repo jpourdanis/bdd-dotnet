@@ -1,7 +1,8 @@
 Feature: OpenWeatherMap
-# ![OpenWeather home page](../weather-home.png)
+
 @ui @success @search
 Scenario: Search Weather By Valid City
+    # ![OpenWeather home page](../weather-home.png)
     Given I navigate to OpenWeatherMap homepage
     When I search for "Athens" in the weather search
     And Click on first result
