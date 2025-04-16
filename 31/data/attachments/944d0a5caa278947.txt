@@ -1,0 +1,1 @@
+{"location":{"name":"Thessaloniki","region":"Central Macedonia","country":"Greece"},"current":{"tempC":20,"tempF":68}}
