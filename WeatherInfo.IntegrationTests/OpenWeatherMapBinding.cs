@@ -76,15 +76,7 @@ namespace OpenWeatherMap.E2ETests
             var context = await _browser.NewContextAsync(_contextOptions);
             await context.Tracing.StartAsync(new TracingStartOptions { Screenshots = true, Snapshots = true, Sources = true });
             _page = await context.NewPageAsync();
-
-            await context.Get<IBrowserContext>().Tracing.StartAsync(new()
-            {
-                Screenshots = true,
-                Snapshots = true,
-                Sources = true
-            });
             _scenarioContext["Page"] = _page;
-    
 
         }
         // Helper method to process video with retry mechanism
@@ -238,7 +230,6 @@ namespace OpenWeatherMap.E2ETests
                 {
                     await ProcessVideoWithRetry(video, _scenarioContext.ScenarioInfo.Title, hasFailed);
                 }
-
             }
 
             // Clean up browser and Playwright
