@@ -74,7 +74,6 @@ namespace OpenWeatherMap.E2ETests
 
             // Create context and page
             var context = await _browser.NewContextAsync(_contextOptions);
-            await context.Tracing.StartAsync(new TracingStartOptions { Screenshots = true, Snapshots = true, Sources = true });
             _page = await context.NewPageAsync();
             _scenarioContext["Page"] = _page;
 
@@ -207,21 +206,6 @@ namespace OpenWeatherMap.E2ETests
 
                 // Close page and context explicitly
                 var context = page.Context;
-                var tracePath = $"trace-{DateTime.Now:yyyyMMdd-HHmmss}.zip";
-                await context.Tracing.StopAsync(new()
-                {
-                    Path = tracePath
-                });
-
-                AllureApi.AddAttachment("Playwright Trace", "application/zip", tracePath);
-                File.Delete(tracePath);
-
-                // Add trace viewer link
-                AllureApi.AddAttachment(
-                    "🔍 Open Trace Viewer: https://trace.playwright.dev/",
-                    "text/uri-list",
-                    "trace-viewer.link"
-                );
                 await page.CloseAsync();
                 await context.CloseAsync();
 
