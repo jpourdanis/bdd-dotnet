@@ -1,0 +1,6 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sat Apr 26 12:21:22 GMT 2025","Sat Apr 26 12:21:22 GMT 2025","7","","","","","","Request Weather Info for Empty City Name",""
+"passed","Sat Apr 26 12:21:27 GMT 2025","Sat Apr 26 12:21:30 GMT 2025","3338","","","","","","Search Weather By Invalid City",""
+"passed","Sat Apr 26 12:21:23 GMT 2025","Sat Apr 26 12:21:23 GMT 2025","11","","","","","","Request Weather Info for Existing City Name",""
+"passed","Sat Apr 26 12:21:21 GMT 2025","Sat Apr 26 12:21:26 GMT 2025","4846","","","","","","Search Weather By Valid City",""
+"passed","Sat Apr 26 12:21:21 GMT 2025","Sat Apr 26 12:21:21 GMT 2025","87","","","","","","Request Weather Info for Non Existing City Name",""
