@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"4af6353378b4a04c476b3b29d555ca88","name":"Weather","statistic":{"failed":0,"broken":0,"skipped":0,"passed":3,"unknown":0,"total":3}},{"uid":"17427d6d18d6db3223881093232fef87","name":"OpenWeatherMap","statistic":{"failed":0,"broken":0,"skipped":0,"passed":2,"unknown":0,"total":2}}]}
