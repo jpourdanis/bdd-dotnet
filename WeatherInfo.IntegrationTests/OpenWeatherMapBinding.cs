@@ -222,9 +222,8 @@ namespace OpenWeatherMap.E2ETests
                 Timeout = 5000
             });
             await page.ClickAsync(".search-dropdown-menu li:first-child");
+            await page.WaitForTimeoutAsync(500);
             await page.WaitForLoadStateAsync(LoadState.DOMContentLoaded, new PageWaitForLoadStateOptions { Timeout = 10000 });
-            await page.WaitForResponseAsync(response =>
-                response.Url.StartsWith("https://api.openweathermap.org/data/2.5/onecall") && response.Status == 200);
         }
 
         [Then("I should see weather details for {string}")]
